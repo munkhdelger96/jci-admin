@@ -41,40 +41,42 @@ class UserProfile extends React.Component {
             <Col md="8">
               <Card>
                 <CardHeader>
-                  <h5 className="title">Edit Profile</h5>
+                  <h5 className="title">Бүтээгдэхүүн нэмэх</h5>
                 </CardHeader>
                 <CardBody>
                   <Form>
                     <Row>
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
-                          <label>Company (disabled)</label>
+                        <label>Бүтээгдэхүүний нэр </label>
                           <Input
-                            defaultValue="Creative Code Inc."
-                            disabled
-                            placeholder="Company"
+                            placeholder="Death Adder"
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="px-md-1" md="3">
+                      </Row>
+                      <Row>
+                      <Col className="pr-md-1" md="5">
                         <FormGroup>
-                          <label>Username</label>
+                          <label>Брэнд</label>
                           <Input
-                            defaultValue="michael23"
-                            placeholder="Username"
+                            defaultValue=""
+                            placeholder="Razer"
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="pl-md-1" md="4">
+                      </Row>
+                      <Row>
+                      <Col className="pr-md-1" md="5">
                         <FormGroup>
-                          <label htmlFor="exampleInputEmail1">
-                            Email address
-                          </label>
-                          <Input placeholder="mike@email.com" type="email" />
-                        </FormGroup>
-                      </Col>
+                          <label>Бүтээгдэхүүний код</label>
+                          <Input placeholder="1234567890" type="number" />
+                         </FormGroup>
+                         </Col>
+                         </Row>
+                      {/*</Col>
                     </Row>
                     <Row>
                       <Col className="pr-md-1" md="6">
@@ -95,7 +97,7 @@ class UserProfile extends React.Component {
                             placeholder="Last Name"
                             type="text"
                           />
-                        </FormGroup>
+                        </FormGroup> 
                       </Col>
                     </Row>
                     <Row>
@@ -129,23 +131,24 @@ class UserProfile extends React.Component {
                             placeholder="Country"
                             type="text"
                           />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="4">
+                        </FormGroup>*/}
+                        
+                      <Row>
+                      
+                      <Col className="pr-md-1" md="5">
                         <FormGroup>
-                          <label>Postal Code</label>
-                          <Input placeholder="ZIP Code" type="number" />
+                          <label>Үлдэгдэл</label>
+                          <Input placeholder="1000" type="number" />
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row>
                       <Col md="8">
                         <FormGroup>
-                          <label>About Me</label>
+                          <label>Бүтээгдэхүүний тухай</label>
                           <Input
                             cols="80"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
+                            defaultValue="Жинхэнэ ориг биз айн?"
                             placeholder="Here can be your description"
                             rows="4"
                             type="textarea"
@@ -157,7 +160,7 @@ class UserProfile extends React.Component {
                 </CardBody>
                 <CardFooter>
                   <Button className="btn-fill" color="primary" type="submit">
-                    Save
+                    Бүртгүүлэх
                   </Button>
                 </CardFooter>
               </Card>
@@ -175,16 +178,14 @@ class UserProfile extends React.Component {
                       <img
                         alt="..."
                         className="avatar"
-                        src={require("../assets/img/emilyz.jpg")}
+                        src={require("../assets/img/yoda.jpg")}
                       />
-                      <h5 className="title">Mike Andrew</h5>
+                      <h5 className="title">Master Yoda</h5>
                     </a>
                     <p className="description">Ceo/Co-Founder</p>
                   </div>
                   <div className="card-description">
-                    Do not be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...
+                    May The Force Be With You
                   </div>
                 </CardBody>
                 <CardFooter>
