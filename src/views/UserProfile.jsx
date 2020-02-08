@@ -50,7 +50,7 @@ class UserProfile extends React.Component {
                         <FormGroup>
                         <label>Бүтээгдэхүүний нэр </label>
                           <Input
-                            placeholder="Death Adder"
+                            placeholder=""
                             type="text"
                           />
                         </FormGroup>
@@ -62,7 +62,7 @@ class UserProfile extends React.Component {
                           <label>Брэнд</label>
                           <Input
                             defaultValue=""
-                            placeholder="Razer"
+                            placeholder=""
                             type="text"
                           />
                         </FormGroup>
@@ -72,7 +72,7 @@ class UserProfile extends React.Component {
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
                           <label>Бүтээгдэхүүний код</label>
-                          <Input placeholder="1234567890" type="number" />
+                          <Input placeholder="" type="number" />
                          </FormGroup>
                          </Col>
                          </Row>
@@ -138,17 +138,17 @@ class UserProfile extends React.Component {
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
                           <label>Үлдэгдэл</label>
-                          <Input placeholder="1000" type="number" />
+                          <Input placeholder="" type="number" />
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row>
-                      <Col md="8">
+                      <Col md="5">
                         <FormGroup>
                           <label>Бүтээгдэхүүний тухай</label>
                           <Input
                             cols="80"
-                            defaultValue="Жинхэнэ ориг биз айн?"
+                            defaultValue=""
                             placeholder="Here can be your description"
                             rows="4"
                             type="textarea"
@@ -165,7 +165,7 @@ class UserProfile extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
-            <Col md="4">
+            {/* <Col md="4">
               <Card className="card-user">
                 <CardBody>
                   <CardText />
@@ -202,7 +202,7 @@ class UserProfile extends React.Component {
                   </div>
                 </CardFooter>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </>
