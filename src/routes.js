@@ -24,7 +24,6 @@ var routes = [
   {
     path: "/user-profile",
     name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: UserProfile,
     layout: "/admin"
@@ -32,7 +31,6 @@ var routes = [
   {
     path: "/tables",
     name: "Table List",
-    rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",
     component: TableList,
     layout: "/admin"
