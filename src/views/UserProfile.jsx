@@ -160,7 +160,7 @@ class UserProfile extends React.Component {
                 </CardBody>
                 <CardFooter>
                   <Button className="btn-fill" color="primary" type="submit">
-                    Бүртгүүлэх
+                    Бүртгэх
                   </Button>
                 </CardFooter>
               </Card>
