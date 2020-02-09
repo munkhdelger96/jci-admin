@@ -72,7 +72,7 @@ class UserProfile extends React.Component {
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
                           <label>Бүтээгдэхүүний код</label>
-                          <Input placeholder="" type="number" />
+                          <Input placeholder="" type="" />
                          </FormGroup>
                          </Col>
                          </Row>
