@@ -21,14 +21,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // reactstrap components
-import { Container, Row, Nav, NavItem, NavLink } from "reactstrap";
+import { Container } from "reactstrap";
 
 class Footer extends React.Component {
   render() {
     return (
       <footer className="footer">
         <Container fluid>
-          
           <div className="copyright">
             © {new Date().getFullYear()} made by{" "}
             <a

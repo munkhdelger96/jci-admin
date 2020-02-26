@@ -22,8 +22,8 @@
 var routes = [
  
   {
-    path: "/user-profile",
-    name: "Бүтээгдэхүүн нэмэх",
+    path: "/members",
+    name: "Add member",
     icon: "tim-icons icon-single-02",
     component: UserProfile,
     layout: "/admin"
