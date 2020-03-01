@@ -18,7 +18,9 @@
 
  import TableList from "./views/TableList.jsx";
  import UserProfile from "./views/UserProfile.jsx";
-
+import NewsForm from "./views/NewsForm.jsx";
+import EventsForm from "./views/EventsForm.jsx";
+import ProjectsForm from "./views/ProjectsForm.jsx";
 var routes = [
  
   {
@@ -26,6 +28,27 @@ var routes = [
     name: "Add member",
     icon: "tim-icons icon-single-02",
     component: UserProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/news",
+    name: "news",
+    icon: "tim-icons icon-single-02",
+    component: NewsForm,
+    layout: "/admin"
+  },
+  {
+    path: "/events",
+    name: "Events",
+    icon: "tim-icons icon-single-02",
+    component: EventsForm,
+    layout: "/admin"
+  },
+  {
+    path: "/projects",
+    name: "Projects",
+    icon: "tim-icons icon-single-02",
+    component: ProjectsForm,
     layout: "/admin"
   },
   {
