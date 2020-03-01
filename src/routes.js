@@ -45,7 +45,7 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/Projects",
+    path: "/projects",
     name: "Projects",
     icon: "tim-icons icon-single-02",
     component: ProjectsForm,
