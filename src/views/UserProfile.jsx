@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import storage from "../firebase";
 
 import {
   Button,
@@ -21,18 +22,46 @@ class UserProfile extends React.Component {
       lastName: '',
       position: '',
       joinedDate: '',
-      image: '',
-      rank: ''
+      rank: '',
+      image:null,
+      url: ''
+      
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
+  }
+  handleChange = e => {
+   if(e.target.files[0]) {
+     const image = e.target.files[0];
+     this.setState(() => ({image}));
+   }
+  } 
+  handleUpload = () => {
+    const {image} = this.state;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image); 
+    uploadTask.on('state_changed',
+        (snapshot) => {
+          //progress
+        },
+        (error) => {
+          //error
+          console.log(error);
+        },
+        () => {
+          //complete
+          storage.ref('images').child(image.name).getDownloadURL().then(url => {
+            console.log(url);
+          })
+    });
   }
 
   onChange = (e) => {
     const state = this.state
     state[e.target.name] = e.target.value;
     this.setState(state);
+    
   }
-
-
+ 
   onSubmit = (e) => {
     e.preventDefault();
 
@@ -41,8 +70,8 @@ class UserProfile extends React.Component {
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
-      image: this.state.image,
-      rank: this.state.rank
+      // image: this.state.image,
+      rank: this.state.rank,
     };
 
     console.log(member);
@@ -52,7 +81,7 @@ class UserProfile extends React.Component {
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
-      image: this.state.image,
+      // image: this.state.image,
       rank: this.state.rank
     })
       .then(function (response) {
@@ -72,6 +101,7 @@ class UserProfile extends React.Component {
   render() {
     return (
       <>
+
         <div className="content">
           <Row>
             <Col md="8">
@@ -80,10 +110,10 @@ class UserProfile extends React.Component {
                   <h5 className="title">Add member</h5>
                 </CardHeader>
                 <CardBody>
-                  <Form onSubmit={this.onSubmit}>
+                  <Form >
                     <Row>
                       <Col className="pr-md-1" md="5">
-                        <FormGroup>
+                        <FormGroup onSubmit={this.onSubmit}>
                         <label>First name</label>
                           <Input
                             placeholder="Narmandakh"
@@ -98,7 +128,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                       <Col className="pr-md-1" md="5">
-                        <FormGroup>
+                        <FormGroup onSubmit={this.onSubmit}>
                           <label>Last name</label>
                           <Input
                             defaultValue=""
@@ -114,7 +144,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
-                          <FormGroup>
+                          <FormGroup onSubmit={this.onSubmit}>
                             <label>Position</label>
                             <Input placeholder="Director" 
                                     type="text"
@@ -128,7 +158,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
-                          <FormGroup>
+                          <FormGroup onSubmit={this.onSubmit}>
                             <label>Rank</label>
                             <Input placeholder="1" 
                                     type="number"
@@ -141,12 +171,19 @@ class UserProfile extends React.Component {
                       <Row>
                         <Col className="pr-md-1" md="5">
                           <FormGroup>
-                            <label>Image</label>
-                            <Input placeholder=""
-                                   type="text"
-                                   name="image"
-                                   value={this.image} 
-                                   onChange={this.onChange} />
+                          <label>Add Picture</label>
+                            <Input type="file"
+                                   onChange={this.handleChange}
+                                    />
+                                    
+
+                          </FormGroup>
+                          </Col>
+                          <Col className="pr-md-1" md="5">
+                          <FormGroup>
+                            <button onClick={this.handleUpload}>Upload</button>
+                                    
+
                           </FormGroup>
                          </Col>
                       </Row>
