@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import storage from "../firebase";
 
 import {
   Button,
@@ -23,43 +22,18 @@ class UserProfile extends React.Component {
       position: '',
       joinedDate: '',
       rank: '',
-      image:null,
-      url: ''
+      selectedFile: null
       
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleUpload = this.handleUpload.bind(this);
-  }
-  handleChange = e => {
-   if(e.target.files[0]) {
-     const image = e.target.files[0];
-     this.setState(() => ({image}));
-   }
-  } 
-  handleUpload = () => {
-    const {image} = this.state;
-    const uploadTask = storage.ref(`images/${image.name}`).put(image); 
-    uploadTask.on('state_changed',
-        (snapshot) => {
-          //progress
-        },
-        (error) => {
-          //error
-          console.log(error);
-        },
-        () => {
-          //complete
-          storage.ref('images').child(image.name).getDownloadURL().then(url => {
-            console.log(url);
-          })
-    });
   }
 
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value;
-    this.setState(state);
+  onChangeHandler=event=>{
+    console.log(event.target.files[0])
     
+    this.setState({
+      selectedFile: event.target.files[0],
+      loaded: 0,
+    })
   }
  
   onSubmit = (e) => {
@@ -70,19 +44,20 @@ class UserProfile extends React.Component {
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
-      // image: this.state.image,
       rank: this.state.rank,
+      file:this.state.selectedFile
     };
 
     console.log(member);
-    
+
     axios.post('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
-      // image: this.state.image,
-      rank: this.state.rank
+      rank: this.state.rank,
+      file:this.state.selectedFile
+
     })
       .then(function (response) {
         // handle success
@@ -173,19 +148,11 @@ class UserProfile extends React.Component {
                           <FormGroup>
                           <label>Add Picture</label>
                             <Input type="file"
-                                   onChange={this.handleChange}
+                                   name="file"
+                                   onChange={this.onChangeHandler}
                                     />
-                                    
-
                           </FormGroup>
                           </Col>
-                          <Col className="pr-md-1" md="5">
-                          <FormGroup>
-                            <button onClick={this.handleUpload}>Upload</button>
-                                    
-
-                          </FormGroup>
-                         </Col>
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
