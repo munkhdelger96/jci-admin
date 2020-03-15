@@ -21,18 +21,21 @@ class UserProfile extends React.Component {
       lastName: '',
       position: '',
       joinedDate: '',
-      image: '',
-      rank: ''
+      rank: '',
+      selectedFile: null
+      
     };
   }
 
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value;
-    this.setState(state);
+  onChangeHandler=event=>{
+    console.log(event.target.files[0])
+    
+    this.setState({
+      selectedFile: event.target.files[0],
+      loaded: 0,
+    })
   }
-
-
+ 
   onSubmit = (e) => {
     e.preventDefault();
 
@@ -41,19 +44,20 @@ class UserProfile extends React.Component {
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
-      image: this.state.image,
-      rank: this.state.rank
+      rank: this.state.rank,
+      file:this.state.selectedFile
     };
 
     console.log(member);
-    
+
     axios.post('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
-      image: this.state.image,
-      rank: this.state.rank
+      rank: this.state.rank,
+      file:this.state.selectedFile
+
     })
       .then(function (response) {
         // handle success
@@ -72,6 +76,7 @@ class UserProfile extends React.Component {
   render() {
     return (
       <>
+
         <div className="content">
           <Row>
             <Col md="8">
@@ -80,10 +85,10 @@ class UserProfile extends React.Component {
                   <h5 className="title">Add member</h5>
                 </CardHeader>
                 <CardBody>
-                  <Form onSubmit={this.onSubmit}>
+                  <Form >
                     <Row>
                       <Col className="pr-md-1" md="5">
-                        <FormGroup>
+                        <FormGroup onSubmit={this.onSubmit}>
                         <label>First name</label>
                           <Input
                             placeholder="Narmandakh"
@@ -98,7 +103,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                       <Col className="pr-md-1" md="5">
-                        <FormGroup>
+                        <FormGroup onSubmit={this.onSubmit}>
                           <label>Last name</label>
                           <Input
                             defaultValue=""
@@ -114,7 +119,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
-                          <FormGroup>
+                          <FormGroup onSubmit={this.onSubmit}>
                             <label>Position</label>
                             <Input placeholder="Director" 
                                     type="text"
@@ -128,7 +133,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
-                          <FormGroup>
+                          <FormGroup onSubmit={this.onSubmit}>
                             <label>Rank</label>
                             <Input placeholder="1" 
                                     type="number"
@@ -141,14 +146,13 @@ class UserProfile extends React.Component {
                       <Row>
                         <Col className="pr-md-1" md="5">
                           <FormGroup>
-                            <label>Image</label>
-                            <Input placeholder=""
-                                   type="text"
-                                   name="image"
-                                   value={this.image} 
-                                   onChange={this.onChange} />
+                          <label>Add Picture</label>
+                            <Input type="file"
+                                   name="file"
+                                   onChange={this.onChangeHandler}
+                                    />
                           </FormGroup>
-                         </Col>
+                          </Col>
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
