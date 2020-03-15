@@ -30,31 +30,18 @@ import {
 } from "reactstrap";
 
 class Tables extends React.Component {
-
   constructor() {
-    super();
-    
+    super(); 
     this.state = {
       members :[]
-  };
-    }
+    };
+  }
 
-    // componentDidMount() {
-    //   axios.get('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members')
-    //     // .then(datafromaxios => {
-    //     //   this.InputData = datafromaxios.data})
-    //     // .then(res => res.json())
-    //     .then(response => this.setState({members, isLoading: false}))
-    //     .catch(err => console.log(err))
-    //     console.log(this.members)
-    //  }
+  async componentDidMount() {
+    const response = await axios.get('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members')
+    this.setState({members: response.data})
+  }
 
-     async componentDidMount() {
-      const response = await axios.get('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members')
-      const members = response.data
-      this.setState({members: members}) // or this.setState({toDoItems})
-      console.log(this.state.members)
-     }
   render() {
     return (
       <>
@@ -81,11 +68,12 @@ class Tables extends React.Component {
                     <tbody>
                       {this.state.members.map((member, i) =>
                       <tr key = {member.id} tabIndex="0">
-                          <td>{member.firstName}</td>
-                          <td>{member.lastName}</td>
-                          <td>{member.position}</td>
-                          <td>{member.joinedDate}</td>
-                          <td>{member.id}</td>
+                          <td>{member.data.firstName}</td>
+                          <td>{member.data.lastName}</td>
+                          <td>{member.data.position}</td>
+                          <td>{member.data.joinedDate}</td>
+                          <td>{member.data.rank}</td>
+                          <td style= {{backgroundImage: "url(" + member.data.image + ")",backgroundPosition:"center" , backgroundSize: "cover", backgroundRepeat:"no-repeat", width: "250px", height: "180px" }}></td>
                       </tr>)}
                     </tbody>
                   </Table>

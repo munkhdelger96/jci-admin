@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://creativetimofficial.github.io/black-dashboard-react/#/dashboard",
+  "engines": {
+    "node": "10.16.x"
+  },
   "dependencies": {
     "@types/react": "16.4.16",
     "axios": "^0.19.2",
