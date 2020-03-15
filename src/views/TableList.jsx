@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import axios from "axios";
 
 // reactstrap components
 import {
@@ -29,133 +30,63 @@ import {
 } from "reactstrap";
 
 class Tables extends React.Component {
+
+  constructor() {
+    super();
+    
+    this.state = {
+      members :[]
+  };
+    }
+
+    // componentDidMount() {
+    //   axios.get('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members')
+    //     // .then(datafromaxios => {
+    //     //   this.InputData = datafromaxios.data})
+    //     // .then(res => res.json())
+    //     .then(response => this.setState({members, isLoading: false}))
+    //     .catch(err => console.log(err))
+    //     console.log(this.members)
+    //  }
+
+     async componentDidMount() {
+      const response = await axios.get('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members')
+      const members = response.data
+      this.setState({members: members}) // or this.setState({toDoItems})
+      console.log(this.state.members)
+     }
   render() {
     return (
       <>
         <div className="content">
           <Row>
             <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Simple Table</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Table className="tablesorter" responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th className="text-center">Salary</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td className="text-center">$36,738</td>
-                      </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td className="text-center">$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td className="text-center">$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>Philip Chaney</td>
-                        <td>Korea, South</td>
-                        <td>Overland Park</td>
-                        <td className="text-center">$38,735</td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td className="text-center">$63,542</td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Gloucester</td>
-                        <td className="text-center">$78,615</td>
-                      </tr>
-                      <tr>
-                        <td>Jon Porter</td>
-                        <td>Portugal</td>
-                        <td>Gloucester</td>
-                        <td className="text-center">$98,615</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col md="12">
               <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Table on Plain Background</CardTitle>
-                  <p className="category">Here is a subtitle for this table</p>
+                  <CardTitle tag="h4">All Members</CardTitle>
+                  {/* <p className="category">Here is a subtitle for this table</p> */}
                 </CardHeader>
                 <CardBody>
                   <Table className="tablesorter" responsive>
                     <thead className="text-primary">
                       <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th className="text-center">Salary</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                        <th>Joined Date</th>
+                        <th>Rank</th>
+                        <th>Image</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td className="text-center">$36,738</td>
-                      </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td className="text-center">$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td className="text-center">$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>Philip Chaney</td>
-                        <td>Korea, South</td>
-                        <td>Overland Park</td>
-                        <td className="text-center">$38,735</td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td className="text-center">$63,542</td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Gloucester</td>
-                        <td className="text-center">$78,615</td>
-                      </tr>
-                      <tr>
-                        <td>Jon Porter</td>
-                        <td>Portugal</td>
-                        <td>Gloucester</td>
-                        <td className="text-center">$98,615</td>
-                      </tr>
+                      {this.state.members.map((member, i) =>
+                      <tr key = {member.id} tabIndex="0">
+                          <td>{member.firstName}</td>
+                          <td>{member.lastName}</td>
+                          <td>{member.position}</td>
+                          <td>{member.joinedDate}</td>
+                          <td>{member.id}</td>
+                      </tr>)}
                     </tbody>
                   </Table>
                 </CardBody>
