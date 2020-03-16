@@ -18,6 +18,7 @@ class Tables extends React.Component {
     super(); 
     this.state = {
       news :[]
+      //TODO: loader
     };
   }
 
