@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Spinner from '../components/Spinner/Spinner';
 
 // reactstrap components
 import {
@@ -12,25 +13,35 @@ import {
   Col
 } from "reactstrap";
 
+const spinnerContainerStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  display: 'flex',
+  marginTop: '25px'
+}
 
 class Tables extends React.Component {
   constructor() {
     super(); 
     this.state = {
-      news :[]
+      news :[],
+      isLoading: true
       //TODO: loader
     };
   }
 
   async componentDidMount() {
     const response = await axios.get('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/news')
-    this.setState({news: response.data})
+    this.setState({news: response.data , isLoading: false})
   }
 
   render() {
     return (
-      <>
-        <div className="content">
+       this.state.isLoading ?
+      <div style = {spinnerContainerStyle}>
+      <Spinner/>
+     </div>:
+        <div className="content">          
           <Row>
             <Col md="12">
               <Card className="card-plain">
@@ -65,7 +76,6 @@ class Tables extends React.Component {
             </Col>
           </Row>
         </div>
-      </>
     );
   }
 }
