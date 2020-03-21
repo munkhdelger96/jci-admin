@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import ReactFileReader from 'react-file-reader';
 
 import {
   Button,
@@ -13,7 +14,7 @@ import {
   Col
 } from "reactstrap";
 
-class UserProfile extends React.Component {
+class MemberForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -22,42 +23,57 @@ class UserProfile extends React.Component {
       position: '',
       joinedDate: '',
       rank: '',
-      selectedFile: null
-      
+      image: ''
     };
   }
 
-  onChangeHandler=event=>{
-    console.log(event.target.files[0])
+  onChangeHandler = (e) => {
+    var fileReader = new FileReader();
+    var something = fileReader.readAsDataURL(e.target.files[0]);
+    console.log(this.state);
+    console.log(something);
     
-    this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
-    })
+    fileReader.onload = () => {
+      const state = this.state
+      state['image'] = fileReader.result;
+      this.setState(state);
+      console.log(fileReader.result)
+    };
+    fileReader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
   }
  
   onSubmit = (e) => {
     e.preventDefault();
-
+    
     const member = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
       rank: this.state.rank,
-      file:this.state.selectedFile
+      image:this.state.image
     };
 
-    console.log(member);
+    console.log(member.image[0]);
 
-    axios.post('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members', {
+    console.log(member);
+    // https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members
+    console.log('here');
+    axios.post('http://localhost:5000/jci-web-7f23c/us-central1/api/members', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       position: this.state.position,
       joinedDate: this.state.joinedDate,
       rank: this.state.rank,
-      file:this.state.selectedFile
-
+      image:this.state.image
     })
       .then(function (response) {
         // handle success
@@ -68,7 +84,7 @@ class UserProfile extends React.Component {
         console.log(error);
       })
       .then(function () {
-        console.log('here');
+        console.log('qwe');
         // always executed
       });
     }
@@ -76,7 +92,6 @@ class UserProfile extends React.Component {
   render() {
     return (
       <>
-
         <div className="content">
           <Row>
             <Col md="8">
@@ -85,10 +100,10 @@ class UserProfile extends React.Component {
                   <h5 className="title">Add member</h5>
                 </CardHeader>
                 <CardBody>
-                  <Form >
+                  <Form onSubmit={this.onSubmit}>
                     <Row>
                       <Col className="pr-md-1" md="5">
-                        <FormGroup onSubmit={this.onSubmit}>
+                        <FormGroup>
                         <label>First name</label>
                           <Input
                             placeholder="Narmandakh"
@@ -103,7 +118,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                       <Col className="pr-md-1" md="5">
-                        <FormGroup onSubmit={this.onSubmit}>
+                        <FormGroup>
                           <label>Last name</label>
                           <Input
                             defaultValue=""
@@ -119,7 +134,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
-                          <FormGroup onSubmit={this.onSubmit}>
+                          <FormGroup>
                             <label>Position</label>
                             <Input placeholder="Director" 
                                     type="text"
@@ -133,7 +148,7 @@ class UserProfile extends React.Component {
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
-                          <FormGroup onSubmit={this.onSubmit}>
+                          <FormGroup>
                             <label>Rank</label>
                             <Input placeholder="1" 
                                     type="number"
@@ -146,13 +161,14 @@ class UserProfile extends React.Component {
                       <Row>
                         <Col className="pr-md-1" md="5">
                           <FormGroup>
-                          <label>Add Picture</label>
-                            <Input type="file"
-                                   name="file"
+                            <label>Add Picture</label>
+                              <Input type="file"
+                                   name="image"
+                                   value={this.image}
                                    onChange={this.onChangeHandler}
-                                    />
+                              />
                           </FormGroup>
-                          </Col>
+                        </Col>
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="5">
@@ -164,10 +180,10 @@ class UserProfile extends React.Component {
                                   onChange={this.onChange} />
                           </FormGroup>
                          </Col>
-                      </Row>  
+                      </Row>
                       <Button className="btn-fill" color="primary" type="submit">
                         Бүртгэх
-                      </Button>     
+                      </Button>
                   </Form>
                 </CardBody>
               </Card>
@@ -179,4 +195,4 @@ class UserProfile extends React.Component {
   }
 }
 
-export default UserProfile;
+export default MemberForm;

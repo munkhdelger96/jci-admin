@@ -20,7 +20,7 @@ import MemberList from "./views/MemberList.jsx";
 import NewsList from "./views/NewsList.jsx";
 import ProjectList from "./views/ProjectList.jsx";
 import EventList from "./views/EventList.jsx";
-import UserProfile from "./views/UserProfile.jsx";
+import MemberForm from "./views/MemberForm.jsx";
 import NewsForm from "./views/NewsForm.jsx";
 import EventsForm from "./views/EventsForm.jsx";
 import ProjectsForm from "./views/ProjectsForm.jsx";
@@ -30,7 +30,7 @@ var routes = [
     path: "/members/add",
     name: "Add member",
     icon: "tim-icons icon-single-02",
-    component: UserProfile,
+    component: MemberForm,
     layout: "/admin"
   },
   {
