@@ -53,10 +53,6 @@ class Tables extends React.Component {
 
   render() {
     return (
-      this.state.isLoading ?
-        <div style = {spinnerContainerStyle}>
-        <Spinner/>
-        </div>:
         <div className="content">
           <Row>
             <Col md="12">
@@ -78,7 +74,12 @@ class Tables extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.members.map((member, i) =>
+                      {
+                      this.state.isLoading ?
+                      <div style = {spinnerContainerStyle}>
+                      <Spinner/>
+                      </div>:
+                      this.state.members.map((member, i) =>
                       <tr key = {member.id} tabIndex="0">
                           <td>{member.data.firstName}</td>
                           <td>{member.data.lastName}</td>

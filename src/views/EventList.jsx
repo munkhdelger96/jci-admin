@@ -35,10 +35,6 @@ class Tables extends React.Component {
 
   render() {
     return (
-      this.state.isLoading ?
-        <div style = {spinnerContainerStyle}>
-        <Spinner/>
-        </div>:
         <div className="content">
           <Row>
             <Col md="12">
@@ -58,7 +54,11 @@ class Tables extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.events.map((event, i) =>
+                        { this.state.isLoading ?
+                        <div style = {spinnerContainerStyle}>
+                        <Spinner/>
+                        </div>:
+                      this.state.events.map((event, i) =>
                       <tr key = {event.id} tabIndex="0">
                           <td>{event.data.Location}</td>
                           <td>{event.data.title}</td>
