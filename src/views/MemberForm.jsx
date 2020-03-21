@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import ReactFileReader from 'react-file-reader';
 
 import {
   Button,
@@ -29,15 +28,11 @@ class MemberForm extends React.Component {
 
   onChangeHandler = (e) => {
     var fileReader = new FileReader();
-    var something = fileReader.readAsDataURL(e.target.files[0]);
-    console.log(this.state);
-    console.log(something);
-    
+    fileReader.readAsDataURL(e.target.files[0]);    
     fileReader.onload = () => {
       const state = this.state
       state['image'] = fileReader.result;
       this.setState(state);
-      console.log(fileReader.result)
     };
     fileReader.onerror = function (error) {
       console.log('Error: ', error);
@@ -52,22 +47,7 @@ class MemberForm extends React.Component {
  
   onSubmit = (e) => {
     e.preventDefault();
-    
-    const member = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      position: this.state.position,
-      joinedDate: this.state.joinedDate,
-      rank: this.state.rank,
-      image:this.state.image
-    };
-
-    console.log(member.image[0]);
-
-    console.log(member);
-    // https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members
-    console.log('here');
-    axios.post('http://localhost:5000/jci-web-7f23c/us-central1/api/members', {
+    axios.post('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/members', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       position: this.state.position,
@@ -83,10 +63,6 @@ class MemberForm extends React.Component {
         // handle error
         console.log(error);
       })
-      .then(function () {
-        console.log('qwe');
-        // always executed
-      });
     }
   
   render() {
