@@ -17,22 +17,38 @@ class NewsForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      firstName: '',
-      lastName: '',
-      position: '',
-      joinedDate: '',
-      image: '',
-      rank: ''
+      title: '',
+      content: '',
+      image: ''
     };
   }
 
+  onChangeHandler = (e) => {
+    var fileReader = new FileReader();
+    fileReader.readAsDataURL(e.target.files[0]);    
+    fileReader.onload = () => {
+      const state = this.state
+      state['image'] = fileReader.result;
+      this.setState(state);
+    };
+    fileReader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+ 
   onSubmit = (e) => {
-    console.error('asd');
     e.preventDefault();
-
-    const { title, description, author } = this.state;
-
-    axios.post('/members')
+    axios.post('https://us-central1-jci-web-7f23c.cloudfunctions.net/api/news', {
+      title: this.state.title,
+      content: this.state.content,
+      image:this.state.image
+    })
       .then(function (response) {
         // handle success
         console.log(response);
@@ -41,12 +57,8 @@ class NewsForm extends React.Component {
         // handle error
         console.log(error);
       })
-      .then(function () {
-        console.log('here');
-        // always executed
-      });
-  }
-
+    }
+  
   render() {
     return (
       <>
@@ -55,18 +67,21 @@ class NewsForm extends React.Component {
             <Col md="8">
               <Card>
                 <CardHeader>
-                  <h5 className="title">Add member</h5>
+                  <h5 className="title">Add new news</h5>
                 </CardHeader>
                 <CardBody>
                   <Form onSubmit={this.onSubmit}>
                     <Row>
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
-                        <label>First name </label>
+                        <label>Title</label>
                           <Input
-                            placeholder="Narmandakh"
+                            placeholder="Title"
                             type="text"
-                            required="true"
+                            required={true}
+                            name="title"
+                            value={this.title} 
+                            onChange={this.onChange}
                           />
                         </FormGroup>
                       </Col>
@@ -74,54 +89,33 @@ class NewsForm extends React.Component {
                       <Row>
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
-                          <label>Last name</label>
+                          <label>Content</label>
                           <Input
-                            defaultValue=""
-                            placeholder="Lkhagvajav"
+                            placeholder="News content"
                             type="text"
-                            required="true"
+                            required={true}
+                            name="content"
+                            value={this.content} 
+                            onChange={this.onChange}
                           />
                         </FormGroup>
                       </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="5">
-                          <FormGroup>
-                            <label>Position</label>
-                            <Input placeholder="Director" 
-                                    type="text"
-                                    required="true"
-                                    />
-                          </FormGroup>
-                         </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="5">
-                          <FormGroup>
-                            <label>Rank</label>
-                            <Input placeholder="1" type="number" />
-                          </FormGroup>
-                         </Col>
                       </Row>  
                       <Row>
                         <Col className="pr-md-1" md="5">
                           <FormGroup>
-                            <label>Image</label>
-                            <Input placeholder="" type="text" />
+                            <label>Add Picture</label>
+                              <Input type="file"
+                                   name="image"
+                                   value={this.image}
+                                   onChange={this.onChangeHandler}
+                              />
                           </FormGroup>
-                         </Col>
+                        </Col>
                       </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="5">
-                          <FormGroup>
-                            <label>Joined Date</label>
-                            <Input type="Date" />
-                          </FormGroup>
-                         </Col>
-                      </Row>  
                       <Button className="btn-fill" color="primary" type="submit">
                         Бүртгэх
-                      </Button>     
+                      </Button>
                   </Form>
                 </CardBody>
               </Card>
