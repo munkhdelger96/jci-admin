@@ -27,7 +27,8 @@ import {
   CardTitle,
   Table,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
 
 const spinnerContainerStyle = {
@@ -71,6 +72,7 @@ class Tables extends React.Component {
                         <th>Joined Date</th>
                         <th>Rank</th>
                         <th>Image</th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -87,6 +89,11 @@ class Tables extends React.Component {
                           <td>{member.data.joinedDate}</td>
                           <td>{member.data.rank}</td>
                           <td style= {{backgroundImage: "url(" + member.data.image + ")",backgroundPosition:"center" , backgroundSize: "cover", backgroundRepeat:"no-repeat", width: "250px", height: "180px" }}></td>
+                          <td>
+                          <Button className="btn-fill" color="primary" type="submit">
+                            Delete
+                          </Button>
+                          </td>
                       </tr>)}
                     </tbody>
                   </Table>
